@@ -7,13 +7,25 @@
     <div v-if="errors !== ''" id="errors">
       {{errors}}
     </div>
+
+    <div v-if="this.$store.getters.getItems && this.$store.getters.getItems.length > 0">
+      <div class="title">
+        Todos that need to be done today
+      </div>
+      <div v-for="item in this.$store.getters.getItems" :key="item.id">
+        {{item.title}}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import { db } from '@/main';
+import { db } from './main';
 export default {
   name: "app",
+  beforeCreate: function() {
+    this.$store.dispatch('setItems');
+  },
   data: () => {
     return {
       myTodo: '',
