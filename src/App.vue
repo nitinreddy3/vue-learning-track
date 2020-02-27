@@ -2,53 +2,53 @@
   <div class="home">
     <img alt="Vue Logo" src="@/assets/logo.png" id="vue-logo" />
     <div class="title">What I am doing?</div>
-    <input v-model="myTodo" />
-    <button @click="addToDo">Add</button>
-    <div v-if="errors !== ''" id="errors">
-      {{errors}}
-    </div>
+    <md-field>
+      <label>To do</label>
+      <md-input v-model="myTodo"></md-input>
+    </md-field>
+    <md-button @click="addToDo" class="md-raised md-primary">Add</md-button>
+    <div v-if="errors !== ''" id="errors">{{errors}}</div>
 
     <div v-if="this.$store.getters.getItems && this.$store.getters.getItems.length > 0">
-      <div class="title">
-        Todos that need to be done today
-      </div>
-      <div v-for="item in this.$store.getters.getItems" :key="item.id">
-        {{item.title}}
-      </div>
+      <div class="title">Todos that need to be done today</div>
+      <div v-for="item in this.$store.getters.getItems" :key="item.id">{{item.title}}</div>
     </div>
   </div>
 </template>
 
 <script>
-import { db } from './main';
+import { db } from "./main";
 export default {
   name: "app",
   beforeCreate: function() {
-    this.$store.dispatch('setItems');
+    this.$store.dispatch("setItems");
   },
   data: () => {
     return {
-      myTodo: '',
-      errors: ''
+      myTodo: "",
+      errors: ""
     };
   },
   methods: {
-    addToDo: function(){
-      this.errors = '';
+    addToDo: function() {
+      this.errors = "";
 
-      if(this.myTodo !== '') {
-        db.collection('items').add({
-          title: this.myTodo,
-          createdAt: Date.now()
-        }).then(response => {
-          if(response) {
-            this.myTodo = ''
-          }
-        }).catch(error => {
-          this.errors = error;
-        })
+      if (this.myTodo !== "") {
+        db.collection("items")
+          .add({
+            title: this.myTodo,
+            createdAt: Date.now()
+          })
+          .then(response => {
+            if (response) {
+              this.myTodo = "";
+            }
+          })
+          .catch(error => {
+            this.errors = error;
+          });
       } else {
-        this.errors = 'Enter a todo';
+        this.errors = "Enter a todo";
       }
     }
   }
@@ -58,7 +58,7 @@ export default {
 <style>
 body,
 html {
-  background: #8ac8e5;
+  /* background: #8ac8e5; */
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -88,14 +88,8 @@ input {
   margin: 0 0 10px;
 }
 
-button {
-  background: #000;
-  color: #fff;
-  border-radius: 5px;
-  margin: 0 auto;
-}
 #errors {
-  background:  red;
+  background: red;
   margin: 10px 0;
   padding: 5px;
   color: #fff;

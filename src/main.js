@@ -3,18 +3,23 @@ import App from './App.vue'
 // import router from './router';
 import store from './store';
 import firebase from 'firebase';
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css';
+// import 'vue-material/dist/theme/default-dark.css';
+
+Vue.use(VueMaterial);
 
 Vue.config.productionTip = false
 
 const config = {
-  apiKey: "AIzaSyAH5eNQC_SrL5xhKsAJtrkY083XrQuxdwE",
-  authDomain: "vue-learning-track.firebaseapp.com",
-  databaseURL: "https://vue-learning-track.firebaseio.com",
-  projectId: "vue-learning-track",
-  storageBucket: "vue-learning-track.appspot.com",
-  messagingSenderId: "305624742426",
-  appId: "1:305624742426:web:634360e9ff4027e7cc2fa3",
-  measurementId: "G-K0QJ7DDQ1X"
+  apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
+  authDomain: process.env.VUE_APP_FIREBASE_AUTHDOMAIN,
+  databaseURL: process.env.VUE_APP_FIREBASE_DB_URL,
+  projectId: process.env.VUE_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VUE_APP_FIREBASE_SENDER_ID,
+  appId: process.env.VUE_APP_FIREBASE_APPID,
+  measurementId: process.env.VUE_APP_FIREBASE_MESSUREMENTID
 };
 
 firebase.initializeApp(config);
